@@ -5,10 +5,10 @@ const expect = chai.expect;
 const mongoose = require('mongoose');
 process.env.MONGOLABL_URI = 'mongodb://localhost/bears_app_test';
 const server = require(__dirname + '/../server');
-const Jedi = require(__dirname + '/../models/jedis');
+const Sith = require(__dirname + '/../models/sith_lords');
 const request = chai.request;
 
-describe('The Jedis API', () => {
+describe('The Sith API', () => {
 
   after((done) => {
     mongoose.connection.db.dropDatabase(() => {
@@ -16,45 +16,45 @@ describe('The Jedis API', () => {
     });
   });
 
-  it('should be able to retrieve all jedis', (done) => {
+  it('should be able to retrieve all siths lords', (done) => {
     request('localhost:3000')
-      .get('/api/jedis')
+      .get('/api/sith-lords')
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.body.name).to.eql('jedi test');
+        expect(res.body.name).to.eql('sith test');
         expect(res.body).to.have.property('_id');
         done();
       });
   });
 
-  it('should create a jedi with a POST', (done) => {
+  it('should create a sith with a POST', (done) => {
     request('localhost:3000')
-      .post('/api/jedis')
-      .send({name: 'test jedi'})
+      .post('/api/sith-lords')
+      .send({name: 'test sith'})
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.body.name).to.eql('test jedi');
+        expect(res.body.name).to.eql('test sith');
         expect(res.body).to.have.property('_id');
         done();
       });
   });
 
-  describe('rest requests that require a jedi already in db', () => {
+
+  describe('rest requests that require a bear already in db', () => {
 
     beforeEach((done) => {
-      Jedi.create({name: 'test jedi'}, (err, data) => {
-        this.testJedi = data;
+      Sith.create({name: 'test sith-lord'}, (err, data) => {
+        this.testSith = data;
         done();
       });
     });
 
-
-    it('shoud be able to update a jedi', (done) => {
+    it('shoud be able to update a sith-lord', (done) => {
       request('localhost:3000')
-        .put('/api/jedis/' + this.testJedi._id)
-        .send({name: 'new jedi name'})
+        .put('/api/sith-lords/' + this.testSith._id)
+        .send({name: 'new sith-lord name'})
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);
@@ -65,7 +65,7 @@ describe('The Jedis API', () => {
 
     it('should be able to delete a bear', (done) => {
       request('localhost:3000')
-        .delete('/api/jedis/' + this.testJedi._id)
+        .delete('/api/sith-lords/' + this.testSith._id)
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);
@@ -73,7 +73,6 @@ describe('The Jedis API', () => {
           done();
         });
     });
-
   });
 
 });

@@ -19,7 +19,7 @@ sithRouter.post('/sith-lords', jsonParser, (req, res) => {
     if (err) return errorHandle(err, res);
 
     res.status(200).json(data);
-  })
+  });
 });
 
 sithRouter.put('sith-lords/:id', (req, res) => {
@@ -29,10 +29,10 @@ sithRouter.put('sith-lords/:id', (req, res) => {
     if (err) return errorHandle(err, res);
 
     res.status(200).json({msg: 'success'});
-  })
-})
+  });
+});
 
-sithRouter.delete('/sithlords/:id', (req, res) => {
+sithRouter.delete('/sith-lords/:id', (req, res) => {
   Sith.remove({_id: req.params.id}, (err) => {
     if (err) return errorHandle(err, res);
 

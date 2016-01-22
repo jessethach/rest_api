@@ -32,7 +32,7 @@ jediRouter.put('jedis/:id', (req, res) => {
   });
 });
 
-jediRouter.delete('/bears/:id', (req, res) => {
+jediRouter.delete('/jedis/:id', (req, res) => {
   Jedi.remove({_id: req.params.id}, (err) => {
     if (err) return errorHandle(err, res);
 
