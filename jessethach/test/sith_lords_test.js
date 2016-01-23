@@ -22,8 +22,7 @@ describe('The Sith API', () => {
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.body.name).to.eql('sith test');
-        expect(res.body).to.have.property('_id');
+        expect(Array.isArray(res.body)).to.eql(true);
         done();
       });
   });
@@ -42,10 +41,10 @@ describe('The Sith API', () => {
   });
 
 
-  describe('rest requests that require a bear already in db', () => {
+  describe('rest requests that require a sith-lord already in db', () => {
 
     beforeEach((done) => {
-      Sith.create({name: 'test sith-lord'}, (err, data) => {
+      Sith.create({name: 'test-sith-lord-beforeeach'}, (err, data) => {
         this.testSith = data;
         done();
       });
@@ -54,7 +53,7 @@ describe('The Sith API', () => {
     it('shoud be able to update a sith-lord', (done) => {
       request('localhost:3000')
         .put('/api/sith-lords/' + this.testSith._id)
-        .send({name: 'new sith-lord name'})
+        .send({name: 'new sith-lord-test-beforeeach'})
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);
@@ -63,7 +62,7 @@ describe('The Sith API', () => {
         });
     });
 
-    it('should be able to delete a bear', (done) => {
+    it('should be able to delete a sith-lord', (done) => {
       request('localhost:3000')
         .delete('/api/sith-lords/' + this.testSith._id)
         .end((err, res) => {

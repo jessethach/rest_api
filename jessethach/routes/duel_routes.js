@@ -11,4 +11,6 @@
 //   .exec()
 //
 //
-// Promise.all(Jedi.find)
+// Promise.all(Jedi.find{})
+
+var jediPromise = Jedi.find{}.exec()

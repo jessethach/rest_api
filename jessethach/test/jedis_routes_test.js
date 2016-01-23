@@ -3,7 +3,7 @@ const chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const expect = chai.expect;
 const mongoose = require('mongoose');
-process.env.MONGOLABL_URI = 'mongodb://localhost/bears_app_test';
+process.env.MONGOLABL_URI = 'mongodb://localhost/jedis_app_test';
 const server = require(__dirname + '/../server');
 const Jedi = require(__dirname + '/../models/jedis');
 const request = chai.request;
@@ -22,8 +22,7 @@ describe('The Jedis API', () => {
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.body.name).to.eql('jedi test');
-        expect(res.body).to.have.property('_id');
+        expect(Array.isArray(res.body)).to.eql(true);
         done();
       });
   });
@@ -31,11 +30,11 @@ describe('The Jedis API', () => {
   it('should create a jedi with a POST', (done) => {
     request('localhost:3000')
       .post('/api/jedis')
-      .send({name: 'test jedi'})
+      .send({name: 'test-jin'})
       .end((err, res) => {
         expect(err).to.eql(null);
         expect(res).to.have.status(200);
-        expect(res.body.name).to.eql('test jedi');
+        expect(res.body.name).to.eql('test-jin');
         expect(res.body).to.have.property('_id');
         done();
       });
@@ -44,17 +43,16 @@ describe('The Jedis API', () => {
   describe('rest requests that require a jedi already in db', () => {
 
     beforeEach((done) => {
-      Jedi.create({name: 'test jedi'}, (err, data) => {
+      Jedi.create({name: 'test-beforeeach'}, (err, data) => {
         this.testJedi = data;
         done();
       });
     });
 
-
     it('shoud be able to update a jedi', (done) => {
       request('localhost:3000')
         .put('/api/jedis/' + this.testJedi._id)
-        .send({name: 'new jedi name'})
+        .send({name: 'new-test-beforeeach'})
         .end((err, res) => {
           expect(err).to.eql(null);
           expect(res).to.have.status(200);
@@ -63,7 +61,7 @@ describe('The Jedis API', () => {
         });
     });
 
-    it('should be able to delete a bear', (done) => {
+    it('should be able to delete a jedi', (done) => {
       request('localhost:3000')
         .delete('/api/jedis/' + this.testJedi._id)
         .end((err, res) => {

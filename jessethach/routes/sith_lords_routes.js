@@ -22,7 +22,7 @@ sithRouter.post('/sith-lords', jsonParser, (req, res) => {
   });
 });
 
-sithRouter.put('sith-lords/:id', (req, res) => {
+sithRouter.put('/sith-lords/:id', jsonParser, (req, res) => {
   var sithData = req.body;
   delete sithData._id;
   Sith.update({_id: req.params.id}, sithData, (err) => {

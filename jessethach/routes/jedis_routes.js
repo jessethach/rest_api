@@ -22,7 +22,7 @@ jediRouter.post('/jedis', jsonParser, (req, res) => {
   });
 });
 
-jediRouter.put('jedis/:id', (req, res) => {
+jediRouter.put('/jedis/:id', jsonParser, (req, res) => {
   var jediData = req.body;
   delete jediData._id;
   Jedi.update({_id: req.params.id}, jediData, (err) => {
