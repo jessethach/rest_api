@@ -41,7 +41,7 @@ describe('The Sith API', () => {
   });
 
 
-  describe('rest requests that require a sith-lord already in db', () => {
+  describe('', () => {
 
     beforeEach((done) => {
       Sith.create({name: 'test-sith-lord-beforeeach'}, (err, data) => {

@@ -2,6 +2,8 @@ const express = require('express');
 const jsonParser = require('body-parser').json();
 const Sith = require(__dirname + '/../models/sith_lords');
 const errorHandle = require(__dirname + '/../lib/error-handle.js');
+const handleDBError = require(__dirname + '/../lib/db_error');
+const jwtAuth = require(__dirname + '/../lib/jwt_auth');
 
 var sithRouter = module.exports = exports = express.Router();
 
@@ -13,8 +15,17 @@ sithRouter.get('/sith-lords', (req, res) => {
   });
 });
 
+sithRouter.get('/mysith-lords', jwtAuth, (req, res) => {
+  Sith.find({forceID: req.user._id}, (err, data) => {
+    if (err) return handleDBError(err, res);
+
+    res.status(200).json(data);
+  });
+});
+
 sithRouter.post('/sith-lords', jsonParser, (req, res) => {
   var newSith = new Sith(req.body);
+  // newSith.forceID = req.user._id;
   newSith.save((err, data) => {
     if (err) return errorHandle(err, res);
 

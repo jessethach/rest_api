@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 
 var jediSchema = new mongoose.Schema({
-  name: String,
+  name: {type: String, required: true},
   lightsaberColor: String,
   world: String,
-  master: Boolean,
-  power: Number
+  master: {type: String, default: 'Unknown'},
+  status: {type: String, default: 'Unknown'},
+  power: Number,
+  forceID: String
 });
 
 module.exports = exports = mongoose.model('Jedi', jediSchema);
