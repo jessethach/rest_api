@@ -16,7 +16,7 @@ userSchema.methods.hashPassword = function(password) {
 };
 
 userSchema.methods.comparePassword = function(password) {
-  return bcrypt.CompareSync(password, this.authentication.password);
+  return bcrypt.compareSync(password, this.authentication.password);
 };
 
 userSchema.methods.generateToken = function() {

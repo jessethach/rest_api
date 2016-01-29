@@ -10,7 +10,7 @@ module.exports = exports = function(req, res, next) {
   }
   User.findOne({_id: decoded.id}, (err, user) => {
     if (err) {
-      console.log(err);
+      console.log(err);//eslint-disable-line
       return res.status(401).json({msg: 'Could not authenticate'});
     }
 

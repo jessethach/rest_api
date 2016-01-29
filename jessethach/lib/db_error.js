@@ -1,4 +1,4 @@
 module.exports = exports = function(err, res) {
-  console.log(err);
+  console.log(err);//eslint-disable-line
   res.status(500).json({msg: 'server error'});
 };

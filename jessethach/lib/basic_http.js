@@ -9,14 +9,14 @@ module.exports = exports = function(req, res, next) {
     var authArr = utf8AuthString.split(':');
     zeroBuffer(authBuf);
     if (authArr[0].length && authArr[1].length) {
-      req.auth = {
+      req.basicHTTP = {
         email: authArr[0],
         password: authArr[1]
       };
       return next();
     }
   } catch(e) {
-    console.log(e);
+    console.log(e);//eslint-disable-line
   }
   res.status(401).json({msg: 'could not authenticate'});
 };
