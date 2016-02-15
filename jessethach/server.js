@@ -9,6 +9,13 @@ const sithRouter = require(__dirname + '/routes/sith_lords_routes');
 const duelRouter = require(__dirname + '/routes/duel_routes');
 const authRouter = require(__dirname + '/routes/auth_routes');
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', 'http://localhost:5000');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  next();
+});
+
 app.use('/api', jediRouter);
 app.use('/api', sithRouter);
 app.use('/api', authRouter);
