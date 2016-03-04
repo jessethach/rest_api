@@ -23,9 +23,9 @@ jediRouter.get('/myjedis', jwtAuth, (req, res) => {
   });
 });
 
-jediRouter.post('/jedis', jsonParser, (req, res) => {
+jediRouter.post('/jedis', jwtAuth, jsonParser, (req, res) => {
   var newJedi = new Jedi(req.body);
-  // newJedi.forceID = req.user._id;
+  newJedi.forceID = req.user._id;
   newJedi.save((err, data) => {
     if (err) return errorHandle(err, res);
 
@@ -33,7 +33,7 @@ jediRouter.post('/jedis', jsonParser, (req, res) => {
   });
 });
 
-jediRouter.put('/jedis/:id', jsonParser, (req, res) => {
+jediRouter.put('/jedis/:id', jwtAuth, jsonParser, (req, res) => {
   var jediData = req.body;
   delete jediData._id;
   Jedi.update({_id: req.params.id}, jediData, (err) => {
@@ -43,7 +43,7 @@ jediRouter.put('/jedis/:id', jsonParser, (req, res) => {
   });
 });
 
-jediRouter.delete('/jedis/:id', (req, res) => {
+jediRouter.delete('/jedis/:id', jwtAuth, (req, res) => {
   Jedi.remove({_id: req.params.id}, (err) => {
     if (err) return errorHandle(err, res);
 
